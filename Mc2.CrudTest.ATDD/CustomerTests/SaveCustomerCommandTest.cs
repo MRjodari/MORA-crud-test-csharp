@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using FluentAssertions;
+﻿using AutoMapper;
 using Mc2.CrudTest.Application;
 using Mc2.CrudTest.Application.CQRS.Commands;
 using Mc2.CrudTest.Application.Interfaces.Repos;
 using Mc2.CrudTest.ATDD.CustomerMock;
 using Mc2.CrudTest.Domain.Entities;
 using Moq;
-using Xunit;
 
 namespace Mc2.CrudTest.ATDD.CustomerTests
 {
@@ -49,10 +42,10 @@ namespace Mc2.CrudTest.ATDD.CustomerTests
         {
             // Arrange
 
-            var handler = new SaveCustomerCommandHandler(_mockRepository.Object, _mapper);
+            //var handler = new SaveCustomerCommandHandler(_mockRepository.Object, _mapper);
 
             // Act
-            await handler.Handle(command, default);
+            await _handler.Handle(command, default);
 
             // Assert
             _mockRepository.Verify(x => x.CustomerRepository.Add(It.Is<Customer>(c => c.FirstName == "John" && c.LastName == "Doe")), Times.Once);

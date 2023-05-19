@@ -2,11 +2,17 @@
 using Mc2.CrudTest.Application.Interfaces.Repos;
 using Mc2.CrudTest.Domain.Entities;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Application.CQRS.Commands
 {
-    public class SaveCustomerCommand : IRequest<SaveCustomerCommandResponse>
+    public class EditCustomerCommand : IRequest<EditCustomerCommandResponse>
     {
+        public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -14,30 +20,30 @@ namespace Mc2.CrudTest.Application.CQRS.Commands
         public string Email { get; set; }
         public string BankAccountNumber { get; set; }
     }
-    public class SaveCustomerCommandResponse
+
+    public class EditCustomerCommandResponse
     {
         public long CustomerId { get; set; }
     }
-    public class SaveCustomerCommandHandler : IRequestHandler<SaveCustomerCommand, SaveCustomerCommandResponse>
+    public class EditCustomerCommandHandler : IRequestHandler<EditCustomerCommand, EditCustomerCommandResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;     
+        private readonly IMapper _mapper;
 
-        public SaveCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public EditCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-        public async Task<SaveCustomerCommandResponse> Handle(SaveCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<EditCustomerCommandResponse> Handle(EditCustomerCommand request, CancellationToken cancellationToken)
         {
-            
             var customer = _mapper.Map<Customer>(request);
 
-            await _unitOfWork.CustomerRepository.Add(customer);
+
+            await _unitOfWork.CustomerRepository.Update(customer);
             await _unitOfWork.Save();
 
-            var response = new SaveCustomerCommandResponse
+            var response = new EditCustomerCommandResponse
             {
                 CustomerId = customer.Id
             };

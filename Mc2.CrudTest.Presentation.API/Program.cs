@@ -1,8 +1,6 @@
 using Mc2.CrudTest.Application;
-using Mc2.CrudTest.Application.CQRS.Commands;
 using Mc2.CrudTest.Infrastructure;
 using Mc2.CrudTest.Infrastructure.Context;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

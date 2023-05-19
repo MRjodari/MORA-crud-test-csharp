@@ -1,6 +1,6 @@
 ﻿using Mc2.CrudTest.Application.CQRS.Commands;
+using Mc2.CrudTest.Application.CQRS.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,6 +37,17 @@ namespace Mc2.CrudTest.Presentation.API.Controllers
         public async Task<IActionResult> Get([FromQuery] GetCustomerQuery getProductQuery)
         {
             return Ok(await _mediator.Send(getProductQuery));
+        }
+
+        [HttpPut("Id")]
+        [SwaggerOperation(
+      Summary = "Edit a Customer",
+      Description = "Update a Customer with id",
+      OperationId = "Customer.EditById",
+      Tags = new[] { "CustomerController" })]
+        public async Task<IActionResult> EditCustomer([FromQuery] EditCustomerCommand editCustomerCommand)
+        {
+            return Ok(await _mediator.Send(editCustomerCommand));
         }
 
     }
