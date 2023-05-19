@@ -50,5 +50,17 @@ namespace Mc2.CrudTest.Presentation.API.Controllers
             return Ok(await _mediator.Send(editCustomerCommand));
         }
 
+        [HttpGet]
+        [SwaggerOperation(
+      Summary = "Get All Customers",
+      Description = "Get All Customers with base details",
+      OperationId = "Customer.GetAll",
+      Tags = new[] { "CustomerController" })]
+        public async Task<IActionResult> GetAll()
+        {
+
+            var result = await _mediator.Send(new GetCustomerListQuery());
+            return Ok(result);
+        }
     }
 }
