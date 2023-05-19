@@ -1,0 +1,34 @@
+﻿using Mc2.CrudTest.Application.CQRS.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace Mc2.CrudTest.Presentation.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomerController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+        public CustomerController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpPost]
+        [SwaggerOperation(
+      Summary = "Save a Customer",
+      Description = "Save a Customer with Details",
+      OperationId = "Customer.Add",
+      Tags = new[] { "CustomerController" })]
+        public async Task<IActionResult> AddCustomer([FromBody] SaveCustomerCommand saveCustomerCommand)
+        {
+            var result = await _mediator.Send(saveCustomerCommand);
+            return Ok(result);
+        }
+
+
+
+    }
+}
