@@ -62,5 +62,17 @@ namespace Mc2.CrudTest.Presentation.API.Controllers
             var result = await _mediator.Send(new GetCustomerListQuery());
             return Ok(result);
         }
+
+        [HttpDelete("Id")]
+        [SwaggerOperation(
+      Summary = "Delete a Customer",
+      Description = "Remove a Customer with id",
+      OperationId = "Customer.DeleteById",
+      Tags = new[] { "CustomerController" })]
+        public async Task<IActionResult> DeleteCustomer([FromQuery] DeleteCustomerCommand deleteCustomerCommand)
+        {
+            return Ok(await _mediator.Send(deleteCustomerCommand));
+        }
+
     }
 }
