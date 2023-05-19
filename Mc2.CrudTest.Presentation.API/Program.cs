@@ -1,7 +1,16 @@
+using Mc2.CrudTest.Application;
+using Mc2.CrudTest.Infrastructure;
+using Mc2.CrudTest.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<AppDbContext>(option =>
+                    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigurInfrastractureServices(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
