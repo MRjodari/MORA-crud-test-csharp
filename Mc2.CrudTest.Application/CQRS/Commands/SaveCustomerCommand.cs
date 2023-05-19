@@ -26,12 +26,7 @@ namespace Mc2.CrudTest.Application.CQRS.Commands
     public class SaveCustomerCommandHandler : IRequestHandler<SaveCustomerCommand, SaveCustomerCommandResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly ICustomerRepository _customerRepository;
-        private readonly IMapper _mapper;
-        private IUnitOfWork @object;
-        private IMapper mapper;
-
-        
+        private readonly IMapper _mapper;     
 
         public SaveCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -41,16 +36,9 @@ namespace Mc2.CrudTest.Application.CQRS.Commands
 
         public async Task<SaveCustomerCommandResponse> Handle(SaveCustomerCommand request, CancellationToken cancellationToken)
         {
-            //var customer = new Customer
-            //{
-            //    Name=request.UserName,
-            //    Email=request.Email
-            //};
-            //RegisterCustomerDto registerCustomerDto = new RegisterCustomerDto();
+            
             var customer = _mapper.Map<Customer>(request);
 
-
-            //await _genericRepository.Add(user);
             await _unitOfWork.CustomerRepository.Add(customer);
             await _unitOfWork.Save();
 

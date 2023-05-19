@@ -13,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
                     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddMediatR(typeof(SaveCustomerCommand));
+//builder.Services.AddMediatR(typeof(SaveCustomerCommand));
 
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigurInfrastractureServices(builder.Configuration);
@@ -26,12 +26,12 @@ builder.Services.AddSwaggerGen(c =>
     c.EnableAnnotations();
 });
 
-var config = new AutoMapper.MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new AutoMapperConfig());
-});
-var mapper = config.CreateMapper();
-builder.Services.AddSingleton(mapper);
+//var config = new AutoMapper.MapperConfiguration(cfg =>
+//{
+//    cfg.AddProfile(new AutoMapperConfig());
+//});
+//var mapper = config.CreateMapper();
+//builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

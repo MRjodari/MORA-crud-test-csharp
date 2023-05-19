@@ -13,7 +13,7 @@ using Mc2.CrudTest.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace Mc2.CrudTest.ATDD
+namespace Mc2.CrudTest.ATDD.CustomerTests
 {
     public class SaveCustomerCommandTest
     {
@@ -48,7 +48,7 @@ namespace Mc2.CrudTest.ATDD
         public async Task Handle_ShouldPersistCustomer()
         {
             // Arrange
-            
+
             var handler = new SaveCustomerCommandHandler(_mockRepository.Object, _mapper);
 
             // Act

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mc2.CrudTest.Application.CQRS.Commands;
+using Mc2.CrudTest.Application.CQRS.Queries;
 using Mc2.CrudTest.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,8 @@ namespace Mc2.CrudTest.Application
 
             CreateMap<Customer, SaveCustomerCommand>()
                 .ReverseMap();
-            //CreateMap<Customer, GetCustomerQueryResponse>()
-            //    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
-            //    .ReverseMap();
+            CreateMap<Customer, GetCustomerQueryResponse>()
+                .ReverseMap();
             //CreateMap<Customer, EditCustomerCommand>()
             //   .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
             //   .ReverseMap();
