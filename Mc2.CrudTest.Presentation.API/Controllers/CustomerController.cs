@@ -39,7 +39,7 @@ namespace Mc2.CrudTest.Presentation.API.Controllers
             return Ok(await _mediator.Send(getProductQuery));
         }
 
-        [HttpPut("Id")]
+        [HttpPut("{Id}")]
         [SwaggerOperation(
       Summary = "Edit a Customer",
       Description = "Update a Customer with id",

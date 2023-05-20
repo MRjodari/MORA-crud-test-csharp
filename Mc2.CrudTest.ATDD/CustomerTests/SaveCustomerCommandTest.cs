@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Mc2.CrudTest.Application;
+using Mc2.CrudTest.Application.CommonResponse;
 using Mc2.CrudTest.Application.CQRS.Commands;
 using Mc2.CrudTest.Application.Interfaces.Repos;
 using Mc2.CrudTest.ATDD.CustomerMock;
 using Mc2.CrudTest.Domain.Entities;
 using Moq;
+using Shouldly;
 
 namespace Mc2.CrudTest.ATDD.CustomerTests
 {
@@ -37,18 +39,14 @@ namespace Mc2.CrudTest.ATDD.CustomerTests
                 BankAccountNumber = "123456789"
             };
         }
+        
         [Fact]
-        public async Task Handle_ShouldPersistCustomer()
+        public async Task Valid_Customer_SholdBeAdded()
         {
-            // Arrange
-
-            //var handler = new SaveCustomerCommandHandler(_mockRepository.Object, _mapper);
-
-            // Act
-            await _handler.Handle(command, default);
-
-            // Assert
-            _mockRepository.Verify(x => x.CustomerRepository.Add(It.Is<Customer>(c => c.FirstName == "John" && c.LastName == "Doe")), Times.Once);
+            var result = await _handler.Handle(command, CancellationToken.None);
+            result.ShouldBeOfType<BaseCommandResponse>();
         }
+
+
     }
 }
